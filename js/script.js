@@ -1,12 +1,5 @@
 
 
-/***
-TODO:
-- EMAIL verification
-- jquery eventlistener for all activities
-- real time verification
-
-***/
 
 const nameBox = $("input[name='user_name']");
 const emailBox = $("input[name='user_email']");
