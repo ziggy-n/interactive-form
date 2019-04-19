@@ -1,5 +1,13 @@
 
 
+/***
+Message to Reviewer:
+I am slightly confused that the review states that my form can be submitted even with incorrect information.
+Upon testing this, the page doesn't refresh unless all the required information is given.
+Unless you'd consider appearing/disappearing html elements as refreshing the page?
+
+The other problem with my form (the form couldn't be submitted when bitcoin/paypal option was selected), I fixed. I hope. :)
+***/
 
 const nameBox = $("input[name='user_name']");
 const emailBox = $("input[name='user_email']");
@@ -186,20 +194,26 @@ $('select option[value="credit card"]').attr("selected", true);
 paypal.hide();
 bitcoin.hide();
 
+//
+let ccSelected = true;
+
 // paymentSelect handler
 paymentSelect.change(function(){
   if(paymentSelect.val() === 'paypal'){
     paypal.show();
     bitcoin.hide();
     cCard.hide();
+    ccSelected = false;
   } else if(paymentSelect.val() === 'bitcoin'){
     paypal.hide();
     bitcoin.show();
     cCard.hide();
+    ccSelected = false;
   } else {
     paypal.hide();
     bitcoin.hide();
     cCard.show();
+    ccSelected = true;
   }
 });
 
@@ -336,8 +350,15 @@ bttn.addEventListener("click", function(event){
   const a = nameBoxValidation();
   const b = emailValidation();
   const c = activitiesValidation();
-  const d = creditCardValidation();
-  if(a && b && c && d){
-    window.location.reload();
+  if(ccSelected){
+    const d = creditCardValidation();
+    if(a && b && c && d){
+      window.location.reload();
+    }
+  } else {
+    if(a && b && c){
+      window.location.reload();
+    }
   }
+
 });
